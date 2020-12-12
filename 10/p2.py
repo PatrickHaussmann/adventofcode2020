@@ -6,13 +6,26 @@ lines.append(max(lines)+3)  # laptop
 
 lines.sort()
 
+groupsOfOnes = []
+ones = 0
 
-dp = [1]
-for i in range(1, len(lines)):
-    ans = 0
-    for j in range(i):
-        if lines[j] + 3 >= lines[i]:
-            ans += dp[j]
-    dp.append(ans)
+for i in range(len(lines)-1):
+    diff = lines[i+1]-lines[i]
+    if diff == 3 and ones != 0:
+        groupsOfOnes.append(ones)
+        ones = 0
+    if diff == 1:
+        ones += 1
 
-print(dp[-1])
+arrangements = 1
+for ones in groupsOfOnes:
+    if ones == 1:
+        continue
+    if ones == 2:
+        arrangements *= 2
+    if ones == 3:
+        arrangements *= 4
+    if ones == 4:
+        arrangements *= 7
+
+print(arrangements)
